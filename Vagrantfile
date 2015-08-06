@@ -64,17 +64,21 @@ Vagrant.configure(2) do |config|
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
+
+#config.vm.provision "shell", inline: <<-SHELL
+  #   sudo apt-get -y remove dictionaries-common
+  #   sudo /usr/share/debconf/fix_db.pl # fix for dictionaries-common bug
+  #   sudo apt-get install -y xfce4 xfce4-goodies
+  #   sudo apt-get install gnome-icon-theme-full tango-icon-theme
+  #   sudo apt-get install -y apache2
+  #   sudo cp /vagrant/Xwrapper.config /etc/X11
+ # SHELL  
+
+
   config.vm.provision "shell", inline: <<-SHELL
-     sudo apt-get -y remove dictionaries-common
-     sudo apt-get update
-     sudo /usr/share/debconf/fix_db.pl # fix for dictionaries-common bug
-     sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
-     sudo apt-get install -y xfce4 xfce4-goodies
-     sudo apt-get install gnome-icon-theme-full tango-icon-theme
-     sudo apt-get install -y apache2
-     sudo cp /vagrant/Xwrapper.config /etc/X11
+     	sudo chmod 755 /vagrant/script.sh 
+	sudo /vagrant/script.sh
   SHELL
-  
   config.vm.provision "shell", inline: <<-SHELL
     echo "Hola!"
   SHELL
