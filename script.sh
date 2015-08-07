@@ -23,9 +23,6 @@ sudo locale-gen UTF-8
 # complementos virtual box
 sudo apt-get install -y virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 
-# Installing Apache
-sudo apt-get -y install apache2
-
 # Installing MySQL and it's dependencies, Also, setting up root password for MySQL as it will prompt to enter the password during installation
 
 sudo debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password root'
@@ -56,3 +53,12 @@ sudo chown vagrant:vagrant -R .
 sudo find . -name "._*" -exec rm -v {} \;
 #sudo rm jboss61.tar.gz
 /home/vagrant/jboss-6.1/bin/run.sh -b 0.0.0.0 &
+
+# Installing Apache
+sudo apt-get -y install apache2
+wget https://www.dropbox.com/s/dpi4tpvz8hrnwrg/000-default.conf?dl=0
+sudo mv 000-default.conf?dl=0 000-default.conf
+sudo cp /etc/apache2/mods-available/proxy_http.load /etc/apache2/mods-enabled/
+sudo cp /etc/apache2/mods-available/proxy.load /etc/apache2/mods-enabled/
+sudo cp /vagrant/000-default.conf /etc/apache2/sites-enabled/
+sudo /etc/init.d/apache2 restart
