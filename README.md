@@ -6,6 +6,5 @@ Entorno para las practicas del curso de Testing IPv6
 Dentro de la carpeta raiz del proyecto, correr:
 
 ```
-vagrant up
-vagrant ssh -c "startxfce4"
+vagrant up --provision
 ```
