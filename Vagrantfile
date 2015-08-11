@@ -65,22 +65,29 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
 
-#config.vm.provision "shell", inline: <<-SHELL
-  #   sudo apt-get -y remove dictionaries-common
-  #   sudo /usr/share/debconf/fix_db.pl # fix for dictionaries-common bug
-  #   sudo apt-get install -y xfce4 xfce4-goodies
-  #   sudo apt-get install gnome-icon-theme-full tango-icon-theme
-  #   sudo apt-get install -y apache2
-  #   sudo cp /vagrant/Xwrapper.config /etc/X11
- # SHELL  
+# config.vm.provision "shell", inline: <<-SHELL
+# 	sudo apt-get -y update
+#     sudo apt-get install postgresql postgresql-contrib -y
+#     sudo apt-get install pgadmin3 -y
+#     sudo echo -e "postgres\npostgres" | sudo passwd postgres
+# 	sudo wget https://www.dropbox.com/s/dzgf15zgi3twdzw/pg_hba.conf?dl=0
+# 	sudo mv pg_hba.conf?dl=0 pg_hba.conf
+# 	sudo mv pg_hba.conf /etc/postgresql/9.3/main/
+#     sudo chown postgres:postgres -R /etc/postgresql/9.3/main/
+# 	sudo /etc/init.d/postgresql restart
+# 
+# 	echo "CREATE DATABASE geo  WITH OWNER = postgres  ENCODING = 'UTF8'  TABLESPACE = pg_default  CONNECTION LIMIT = -1;" > createdb.sql
+# 	sudo -i -u postgres
+# 	psql -a -f /home/vagrant/createdb.sql -U postgres -w -h localhost
+# SHELL
 
-
-  config.vm.provision "shell", inline: <<-SHELL
-     	sudo chmod 755 /vagrant/script.sh 
+config.vm.provision "shell", inline: <<-SHELL
+   	sudo chmod 755 /vagrant/script.sh 
 	sudo /vagrant/script.sh
-  SHELL
-  config.vm.provision "shell", inline: <<-SHELL
+SHELL
+
+config.vm.provision "shell", inline: <<-SHELL
     echo "Hola!"
-  SHELL
+SHELL
   
 end
